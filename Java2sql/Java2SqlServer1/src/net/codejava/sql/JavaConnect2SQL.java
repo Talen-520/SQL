@@ -1,0 +1,38 @@
+package net.codejava.sql;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class JavaConnect2SQL {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//String connectionUrl = "jdbc:sqlserver://occam-dbserver.cs.qc.cuny.edu\\dbclass,21433;databaseName=TSQLV4;user=student;password=fall2022";
+		//String user = "student";
+		//String password = "Fall2022";
+		//String connectionUrl = "jdbc:sqlserver://192.168.4.21,13001;databaseName=TSQLV4;user=sa;password=PH@123456789";
+        String connectionUrl = "jdbc:sqlserver://occam-dbserver.cs.qc.cuny.edu\\dbclass:21433;databaseName=TSQLV4;encrypt=false";
+        String user = "student";
+        String password = "fall2022";
+
+
+        try {
+            Connection connection = DriverManager.getConnection(connectionUrl, user, password);
+            System.out.println("Connected the ms sql");
+//            // Create and execute a SELECT SQL statement.
+//            String selectSql = "SELECT TOP 10 orderid, custid from Sales.Orders";
+//            Statement stmt = connection.createStatement( );
+//            ResultSet resultSet = stmt.executeQuery(selectSql);
+
+//            // Print results from select statement
+//            while (resultSet.next()) {
+//                System.out.println(resultSet.getString(1) + " " + resultSet.getString(2));
+//            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
