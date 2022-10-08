@@ -1,7 +1,7 @@
 ---------------------------------------------------------------------
 -- Microsoft SQL Server T-SQL Fundamentals
 -- Chapter 02 - Single-Table Queries
--- © Itzik Ben-Gan 
+-- ï¿½ Itzik Ben-Gan 
 ---------------------------------------------------------------------
 
 ---------------------------------------------------------------------
@@ -19,7 +19,8 @@ HAVING COUNT(*) > 1
 ORDER BY empid, orderyear;
 
 ---------------------------------------------------------------------
--- The FROM Clause
+-- The FROM Clause 
+-- The SQL FROM clause is used to list the tables and any joins required for the SQL statement.
 ---------------------------------------------------------------------
 
 SELECT orderid, custid, empid, orderdate, freight
@@ -27,6 +28,7 @@ FROM Sales.Orders;
 
 ---------------------------------------------------------------------
 -- The WHERE Clause
+-- The SQL WHERE clause is used to specify a condition while fetching the data from a single table or by joining with multiple tables
 ---------------------------------------------------------------------
 
 SELECT orderid, empid, orderdate, freight
@@ -35,6 +37,7 @@ WHERE custid = 71;
 
 ---------------------------------------------------------------------
 -- The GROUP BY Clause
+-- The GROUP BY statement groups rows that have the same values into summary rows, like "find the number of customers in each country".
 ---------------------------------------------------------------------
 
 SELECT empid, YEAR(orderdate) AS orderyear
@@ -67,6 +70,7 @@ GROUP BY empid, YEAR(orderdate);
 
 ---------------------------------------------------------------------
 -- The HAVING Clause
+-- The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.
 ---------------------------------------------------------------------
 
 SELECT empid, YEAR(orderdate) AS orderyear
@@ -77,6 +81,7 @@ HAVING COUNT(*) > 1;
 
 ---------------------------------------------------------------------
 -- The SELECT Clause
+-- The SELECT statement is used to select data from a database.
 ---------------------------------------------------------------------
 
 SELECT orderid orderdate
@@ -139,6 +144,8 @@ FROM Sales.Orders;
 
 ---------------------------------------------------------------------
 -- The ORDER BY Clause
+-- The ORDER BY keyword is used to sort the result-set in ascending or descending order.
+-- The ORDER BY keyword sorts the records in ascending order by default. To sort the records in descending order, use the DESC keyword.
 ---------------------------------------------------------------------
 
 -- Listing 2-4: Query Demonstrating the ORDER BY Clause
@@ -161,10 +168,12 @@ ORDER BY empid;
 
 ---------------------------------------------------------------------
 -- The TOP and OFFSET-FETCH Filters
+-- TOP and OFFSET-FETCH are filters that are based on a different concept: you indicate order and how many rows to filter based on that order
 ---------------------------------------------------------------------
 
 ---------------------------------------------------------------------
 -- The TOP Filter
+-- The SELECT TOP clause is used to specify the number of records to return.
 ---------------------------------------------------------------------
 
 -- Listing 2-5: Query Demonstrating the TOP Option
@@ -187,6 +196,7 @@ ORDER BY orderdate DESC;
 
 ---------------------------------------------------------------------
 -- The OFFSET-FETCH Filter
+-- The OFFSET and FETCH clauses are the options of the ORDER BY clause. They allow you to limit the number of rows to be returned by a query.
 ---------------------------------------------------------------------
 
 -- OFFSET-FETCH
@@ -197,6 +207,10 @@ OFFSET 50 ROWS FETCH NEXT 25 ROWS ONLY;
 
 ---------------------------------------------------------------------
 -- A Quick Look at Window Functions
+--First, the PARTITION BY clause distributes the Order by CustomerID.
+--Second, the ORDER BY clause sorts the order in each department by orderdate, orderid in the ascending order.
+--Third, the ROW_NUMBER() assigns each row a sequential integer number. It resets the number when the order changes.
+
 ---------------------------------------------------------------------
 
 SELECT orderid, custid, val,
@@ -207,6 +221,10 @@ ORDER BY custid, val;
 
 ---------------------------------------------------------------------
 -- Predicates and Operators
+-- The IN operator allows you to specify multiple values in a WHERE clause.
+-- The BETWEEN operator selects values within a given range. The values can be numbers, text, or dates.
+-- The BETWEEN operator is inclusive: begin and end values are included.
+-- The LIKE operator is used in a WHERE clause to search for a specified pattern in a column.
 ---------------------------------------------------------------------
 
 -- Predicates: IN, BETWEEN, LIKE
@@ -266,6 +284,7 @@ SELECT (10 + 2) * 3 -- 36
 
 ---------------------------------------------------------------------
 -- CASE Expression
+-- conditional statement, must have end to end loop
 ---------------------------------------------------------------------
 
 -- Simple
@@ -295,6 +314,7 @@ FROM Sales.OrderValues;
 
 ---------------------------------------------------------------------
 -- NULLs
+-- A field with a NULL value is a field with no value.
 ---------------------------------------------------------------------
 
 SELECT custid, country, region, city
@@ -320,6 +340,7 @@ WHERE region <> N'WA'
 
 ---------------------------------------------------------------------
 -- All-At-Once Operations
+-- we can setup condition in one queries instead of mutiple queries
 ---------------------------------------------------------------------
 
 /*
@@ -359,6 +380,7 @@ WHERE (col1 > 0 AND col2 > 2*col1) OR (col1 < 0 AND col2 < 2*col1);
 
 ---------------------------------------------------------------------
 -- Collation
+-- Collations in SQL Server provide sorting rules
 ---------------------------------------------------------------------
 
 SELECT name, description
@@ -374,6 +396,9 @@ WHERE lastname COLLATE Latin1_General_CS_AS = N'davis';
 
 ---------------------------------------------------------------------
 -- Operators and Functions
+--N declaring the string as nvarchar data typ 
+-- Prefix Unicode character string constants with the letter N. Without the N prefix, the string is converted to the default code page of the database. This default code page may not recognize certain characters.
+
 ---------------------------------------------------------------------
 
 -- Concatenation
@@ -495,6 +520,8 @@ WHERE lastname LIKE N'[^A-E]%';
 
 ---------------------------------------------------------------------
 -- Working with Date and Time Data
+-- date may have different fomat
+--copy table by DROP TABLE
 ---------------------------------------------------------------------
 
 -- Literals
@@ -693,7 +720,8 @@ FROM Sales.Orders
 WHERE orderdate = EOMONTH(orderdate);
 
 ---------------------------------------------------------------------
--- Querying Metadata
+-- Querying Metadata 
+-- provides the basic and relevant information about the data. Metadata functions in SQL Server return information about the database, database objects, database files, file groups etc
 ---------------------------------------------------------------------
 
 -- Catalog Views
