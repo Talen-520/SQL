@@ -22,15 +22,20 @@ public class JavaConnect2SQL {
         try {
             Connection connection = DriverManager.getConnection(connectionUrl, user, password);
             System.out.println("Connected the ms sql");
-//            // Create and execute a SELECT SQL statement.
-//            String selectSql = "SELECT TOP 10 orderid, custid from Sales.Orders";
-//            Statement stmt = connection.createStatement( );
-//            ResultSet resultSet = stmt.executeQuery(selectSql);
 
-//            // Print results from select statement
-//            while (resultSet.next()) {
-//                System.out.println(resultSet.getString(1) + " " + resultSet.getString(2));
-//            }
+            String sql = "SELECT TOP (10) * FROM [AdventureWorks2017].[Sales].[SalesOrderHeaderSalesReason]";
+            Statement statement  = connection.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            
+            
+            int count = 0;
+            while(result.next()) {
+            	count++;
+            	String name = result.getString("name");
+            	int mark = result.getInt("mark");
+            	System.out.printf("hello");
+            	connection.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
